@@ -1,0 +1,85 @@
+﻿@page "/products"
+@using Syncfusion.Blazor
+@using Syncfusion.Blazor.Notifications
+@attribute [StreamRendering(true)]
+
+<div class="container">
+    <div class="row">
+        @if (Products.Count > 0)
+        {
+            foreach (var item in Products)
+            {
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-header">@item.Name</div>
+                        <div class="card-body">
+                            <img class="card-img-top" src="../images/@item.Image" height="250" />
+                            <p>@item.Description</p>
+                        </div>
+                        <div class="card-footer">
+                            <CartButton CartItem="item" />
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <h6 class="text-center">Loading...</h6>
+            for (int i = 1; i <= 6; i++)
+            {
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <SfSkeleton Shape=SkeletonType.Square Effect="ShimmerEffect.Wave" Height="250px" Width="350px"></SfSkeleton>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+@code {
+    private List<Product> Products { get; set; } = new();
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadData();
+    }
+
+    private async Task LoadData()
+    {
+        await Task.Delay(5000);
+        Products = new List<Product>
+        {
+            new Product {
+                Id = 1,
+                Name = "Laptop",
+                Description = "Surface Laptop",
+                Image = "surfacelaptop.jpg" },
+            new Product {
+                Id = 2,
+                Name = "Mobile",
+                Description = "Samsung Galaxy A55 ",
+                Image = "samsung-galaxy-a55.jpg" },
+            new Product {
+                Id = 3,
+                Name = "Tablet",
+                Description = "Lenovo Yoga Tablet 2 10.1",
+                Image = "lenovo-yoga-tablet-2-1.jpg" },
+            new Product {
+                Id = 4,
+                Name = "Desktop",
+                Description = "HP ProDesk 6300 Desktop",
+                Image = "hp-elitedesk-8200.jpg" },
+            new Product {
+                Id = 5,
+                Name = "Smart Watch",
+                Description = "Samer-Khodeir",
+                Image = "samer-khodeir.jpg" },
+            new Product {
+                Id = 6,
+                Name = "Headphone",
+                Description = "Soundbeat Headphone",
+                Image = "soundbeat- headphone.jpg" }
+        };
+    }
+}

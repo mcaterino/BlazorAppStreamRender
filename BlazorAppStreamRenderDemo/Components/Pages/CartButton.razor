@@ -1,0 +1,15 @@
+﻿<button class="btn btn-danger" @onclick="AddToCart">Add To Cart</button>
+Id : @id Name : @name Description : @desc
+
+@code {
+    string name; string desc; int id;
+
+    [Parameter] public Product CartItem { get; set; }
+
+    private void AddToCart()
+    {
+        id = CartItem.Id;
+        name = CartItem.Name;
+        desc = CartItem.Description;
+    }
+}
